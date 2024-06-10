@@ -7,6 +7,7 @@
 </div>
 <div style="display:flex; align-items:center;">
   <h3>フロントエンド言語</h3>
+  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E.svg?logo=JavaScript&style=for-the-badge&logoColor=white">
 </div>
 
 プロジェクトの概要
