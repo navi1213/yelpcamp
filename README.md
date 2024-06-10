@@ -1,7 +1,9 @@
 <h2>使用している技術一覧</h2>
 <div style="display:flex; align-items:center;">
+  <h3>フロントエンドフレームワーク</h3>
   <img src="https://img.shields.io/badge/-Ejs-B4CA65.svg?logo=ejs&style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/-Node.js-339933.svg?logo=node.js&style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/-express-339933.svg?logo=node.js&style=plastic">
 </div>
 
 
