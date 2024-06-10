@@ -43,7 +43,11 @@ localhost:3000に接続する
     │   └── show.ejs  
     └── home.ejs  
 ## 開発環境の構築方法
--
+- Node.js@14
+- MongoDB Community Server@7.x  
+[windowsのインストールはこちら](https://www.mongodb.com/try/download/community/)  
+macでのインストール  
+[macではこちらを参照してください](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x-tarball/)
 ## トラブルシューティング
 -
 
