@@ -7,7 +7,7 @@
 ## バックエンド
 - バックエンドフレームワーク: Node.js, Express
 - バックエンド言語: JavaScript (Node.js)
-- ミドルウェア: Method-Override
+- ミドルウェア: Method-Override,url-encoded
 
 ## インフラ
 - データベース: MongoDB
