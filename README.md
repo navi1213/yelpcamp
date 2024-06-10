@@ -19,6 +19,7 @@
 </div>
 <div style="display:flex; align-items:center;">
   <h3>バックエンド言語</h3>
+  <img src="https://img.shields.io/badge/javascriot-(Node.js)-F7DF1E.svg?logo=javascript&style=flat-square">
 </div>
 <div style="display:flex; align-items:center;">
   <h3>ミドルウェア</h3>
