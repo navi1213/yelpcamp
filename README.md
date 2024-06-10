@@ -4,9 +4,10 @@
   <img src="https://img.shields.io/badge/-Ejs-B4CA65.svg?logo=ejs&style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/-Node.js-339933.svg?logo=node.js&style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/-express-339933.svg?logo=node.js&style=plastic">
-  <img src="https://img.shields.io/badge/-express-339933.svg?logo=node.js&style=plastic">
 </div>
-
+<div style="display:flex; align-items:center;">
+  <h3>フロントエンド言語</h3>
+</div>
 
 プロジェクトの概要
 必要な環境変数やコマンド一覧
