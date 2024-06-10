@@ -5,9 +5,9 @@
 </div>
 <div style="display:flex; align-items:center;">
   <h3>フロントエンド言語</h3>
-  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E.svg?logo=JavaScript&style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/-HTML5-E34F26.svg?logo=HTML5&style=for-the-badge&logoColor=white">
-  
+  <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=CSS3&style=for-the-badge&logoColor=white">
+  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E.svg?logo=JavaScript&style=for-the-badge&logoColor=white">
 </div>
 <div style="display:flex; align-items:center;">
   <h3>バックエンドフレームワーク</h3>
