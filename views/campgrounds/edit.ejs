@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=campground.title%>の編集
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%=campground.title%>の編集
+    </h1>
+    <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST">
+        <div>
+            <label for="title">キャンプ場のタイトル</label>
+            <!-- campground[title]という書き方で、{campground:{title:なんとか,location:なんとか]}というをreq.bodyにいれる} -->
+            <input type="text" id="title" name="campground[title]" value="<%=campground.title  %>">
+        </div>
+        <div>
+            <label for="location">場所</label>
+            <input type="text" id="location" name="campground[location]" value="<%=campground.location %>">
+        </div>
+        <button>更新</button>
+    </form>
+    <p>
+        <a href="/campgrounds/<%=campground._id%>">詳細に戻る</a>
+    </p>
+    <footer>
+        <a href="/campgrounds">一覧に戻る</a>
+    </footer>
+</body>
+
+</html>
