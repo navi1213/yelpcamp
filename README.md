@@ -1,33 +1,3 @@
-<h2>使用している技術一覧</h2>
-<div style="display:flex; align-items:center;">
-  <h3>フロントエンドフレームワーク</h3>
-  <img src="https://img.shields.io/badge/-Ejs-B4CA65.svg?logo=ejs&style=for-the-badge&logoColor=white">
-</div>
-<div style="display:flex; align-items:center;">
-  <h3>フロントエンド言語</h3>
-  <img src="https://img.shields.io/badge/-HTML5-E34F26.svg?logo=HTML5&style=for-the-badge&logoColor=white">
-  <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=CSS3&style=for-the-badge&logoColor=white">
-  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E.svg?logo=JavaScript&style=for-the-badge&logoColor=white">
-</div>
-<div style="display:flex; align-items:center;">
-  <h3>バックエンドフレームワーク</h3>
-  <img src="https://img.shields.io/badge/-Node.js-339933.svg?logo=node.js&style=for-the-badge&logoColor=white">
-  <img src="https://img.shields.io/badge/-express-339933.svg?logo=node.js&style=plastic">
-</div>
-<div style="display:flex; align-items:center;">
-  <h3></h3>
-</div>
-<div style="display:flex; align-items:center;">
-  <h3>バックエンド言語</h3>
-  <img src="https://img.shields.io/badge/javascriot-(Node.js)-F7DF1E.svg?logo=javascript&style=flat-square">
-</div>
-<div style="display:flex; align-items:center;">
-  <h3>ミドルウェア</h3>
-</div>
-<div style="display:flex; align-items:center;">
-  <h3>インフラ</h3>
-</div>
-
 # 使用した技術スタック
 
 ## フロントエンド
@@ -42,4 +12,6 @@
 ## インフラ
 - データベース: MongoDB
 - データベースツール: Mongosh (MongoDB Shell)
+
+
 
