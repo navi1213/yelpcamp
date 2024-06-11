@@ -52,7 +52,15 @@ macでのインストール
 
 ## DB seeds入れ方
 ```
-$ mongosh
 $ npm run seed:db
+```
+
+## local起動方法
+```
+# seedありで起動
+$ npm run dev:stub
+
+# seedなしで起動
+$ npm run dev:stub
 ```
 
