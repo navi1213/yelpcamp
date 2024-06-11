@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "start mongosh && node app.js",
+    "dev:stub": "start mongosh && node seeds/index.js && node app.js",
+    "seed:db": "start mongosh && node seeds/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
