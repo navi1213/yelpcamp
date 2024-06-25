@@ -71,7 +71,6 @@ app.post(
     validateCampground,
     catchAsync(async (req, res) => {
         // if(!req.body.campground) throw new ExpressError("不正なキャンプ場データです", 400);
-
         const campground = new Campground(req.body.campground);
         await campground.save();
         res.redirect(`/campgrounds/${campground._id}`);
@@ -116,7 +115,7 @@ app.all("*", (req, res, next) => {
     next(new ExpressError("ページが見つかりません", 404));
 });
 app.use((err, req, res, next) => {
-    const { statusCode = 500, message } = err;
+    const { statusCode = 500, message = "問題が起きました" } = err;
     if (!err.message) err.message = "問題が発生しました";
     res.status(statusCode).render("error", { err });
 });
