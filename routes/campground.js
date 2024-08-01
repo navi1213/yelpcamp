@@ -3,17 +3,18 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const Campground = require("../models/campground");
 const ExpressError = require("../utils/ExpressError");
-const { campgroundSchema} = require("../schemas");
+const { campgroundSchema } = require("../schemas");
+const { isLoggedIn } = require("../middleware");
 
 const validateCampground = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body);
-    if (error) {
-      const msg = error.details.map((detail) => detail.message).join(",");
-      throw new ExpressError(msg, 400);
-    } else {
-      next();
-    }
-  };
+  const { error } = campgroundSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((detail) => detail.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
 //キャンプ場一覧
 router.get(
   "/",
@@ -23,7 +24,7 @@ router.get(
   })
 );
 //:idよりも先に書く（/newが:idとして認識されてしまう）
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("campgrounds/new");
 });
 //キャンプ場の詳細画面への遷移
@@ -37,12 +38,12 @@ router.get(
       req.flash("error", "キャンプ場が見つかりませんでした");
       return res.redirect("/campgrounds");
     }
-    res.render("campgrounds/show", { campground});
+    res.render("campgrounds/show", { campground });
   })
 );
 //新規作成のPOST処理
 router.post(
-  "/",
+  "/",isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     // if(!req.body.campground) throw new ExpressError("不正なキャンプ場データです", 400);
@@ -54,7 +55,7 @@ router.post(
 );
 //編集画面への遷移
 router.get(
-  "/:id/edit",
+  "/:id/edit",isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
@@ -67,7 +68,7 @@ router.get(
 );
 //編集のPUT処理
 router.put(
-  "/:id",
+  "/:id",isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -84,7 +85,7 @@ router.put(
 );
 //削除のDELETE処理
 router.delete(
-  "/:id",
+  "/:id",isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
