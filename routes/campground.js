@@ -2,19 +2,8 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const Campground = require("../models/campground");
-const ExpressError = require("../utils/ExpressError");
-const { campgroundSchema } = require("../schemas");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, validateCampground, isAuthor } = require("../middleware");
 
-const validateCampground = (req, res, next) => {
-  const { error } = campgroundSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((detail) => detail.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
 //キャンプ場一覧
 router.get(
   "/",
@@ -31,9 +20,14 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get(
   "/:id",
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate(
-      "reviews"
-    );
+    const campground = await Campground.findById(req.params.id)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
+      .populate("author");
     if (!campground) {
       req.flash("error", "キャンプ場が見つかりませんでした");
       return res.redirect("/campgrounds");
@@ -43,11 +37,13 @@ router.get(
 );
 //新規作成のPOST処理
 router.post(
-  "/",isLoggedIn,
+  "/",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     // if(!req.body.campground) throw new ExpressError("不正なキャンプ場データです", 400);
     const campground = new Campground(req.body.campground);
+    campground.author = req.user._id;
     await campground.save();
     req.flash("success", "新しいキャンプ場を登録しました");
     res.redirect(`/campgrounds/${campground._id}`);
@@ -55,7 +51,9 @@ router.post(
 );
 //編集画面への遷移
 router.get(
-  "/:id/edit",isLoggedIn,
+  "/:id/edit",
+  isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
@@ -68,24 +66,26 @@ router.get(
 );
 //編集のPUT処理
 router.put(
-  "/:id",isLoggedIn,
+  "/:id",
+  isLoggedIn,
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(
+    const camp = await Campground.findByIdAndUpdate(
       id,
-      {
-        ...req.body.campground,
-      },
+      { ...req.body.campground },
       { runValidators: true }
     );
     req.flash("success", "キャンプ場情報を更新しました");
-    res.redirect(`/campgrounds/${campground._id}`);
+    res.redirect(`/campgrounds/${camp._id}`);
   })
 );
 //削除のDELETE処理
 router.delete(
-  "/:id",isLoggedIn,
+  "/:id",
+  isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
