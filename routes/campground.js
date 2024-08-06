@@ -3,19 +3,23 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const { isLoggedIn, validateCampground, isAuthor } = require("../middleware");
 const campgrounds = require("../controllers/campgrounds");
+const multer  = require('multer')
+const {storage} = require("../cloudinary")
+const upload = multer({ storage })
 
 router
   .route("/")
   //キャンプ場一覧
   .get(catchAsync(campgrounds.index))
-  //新規作成のPOST処理
+  // 新規作成のPOST処理
   .post(
     isLoggedIn,
+    upload.array("image"),
     validateCampground,
     catchAsync(campgrounds.createCampground)
   );
-
-//:idよりも先に書く（/newが:idとして認識されてしまう）
+  
+//新規作成画面への遷移(:idよりも先に書く（/newが:idとして認識されてしまう）)
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
 router
@@ -26,6 +30,7 @@ router
   .put(
     isLoggedIn,
     isAuthor,
+    upload.array("image"),
     validateCampground,
     catchAsync(campgrounds.updateCampground)
   )

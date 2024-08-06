@@ -2,12 +2,23 @@ const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
 //スキーマを定義
+// https://res.cloudinary.com/dtaye3q8v/image/upload/c_thumb,g_face,h_500,w_500/v1722951130/YelpCamp/iwtciw1iuiqxx46kd5ks.png
+
+const imageSchema = new Schema({
+    url:String,
+    filename:String
+})
+imageSchema.virtual("thumbnail").get(function(){
+    return this.url.replace("/upload","/upload/w_200");
+});
 const campgroundSchema = new Schema({
     title: String,
     price: Number,
     description: String,
     location: String,
-    image:String,
+    images:[
+        imageSchema
+    ],
     author: {
         type:Schema.Types.ObjectId,
         ref:"User"

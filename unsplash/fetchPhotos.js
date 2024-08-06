@@ -1,6 +1,8 @@
 const axios = require('axios');
 const fs = require('fs');
-require('dotenv').config();  // .envファイルから環境変数を読み込む
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
 
 // Unsplash APIキーとコレクションIDを環境変数から取得
 const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
