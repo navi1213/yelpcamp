@@ -5,39 +5,48 @@ const Schema = mongoose.Schema;
 // https://res.cloudinary.com/dtaye3q8v/image/upload/c_thumb,g_face,h_500,w_500/v1722951130/YelpCamp/iwtciw1iuiqxx46kd5ks.png
 
 const imageSchema = new Schema({
-    url:String,
-    filename:String
-})
-imageSchema.virtual("thumbnail").get(function(){
-    return this.url.replace("/upload","/upload/w_200");
+  url: String,
+  filename: String,
+});
+imageSchema.virtual("thumbnail").get(function () {
+  return this.url.replace("/upload", "/upload/w_200");
 });
 const campgroundSchema = new Schema({
-    title: String,
-    price: Number,
-    description: String,
-    location: String,
-    images:[
-        imageSchema
-    ],
-    author: {
-        type:Schema.Types.ObjectId,
-        ref:"User"
+  title: String,
+  price: Number,
+  description: String,
+  location: String,
+  images: [imageSchema],
+  geometry: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ["Point"], // 'location.type' must be 'Point'
+      required: true,
     },
-    reviews:[ 
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Review"
-        }
-    ]
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
-campgroundSchema.post("findOneAndDelete",async function(doc){
-    if(doc) {
-        await Review.deleteMany({
-            _id:{
-                $in:doc.reviews
-            }
-        })
-    }
+campgroundSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await Review.deleteMany({
+      _id: {
+        $in: doc.reviews,
+      },
+    });
+  }
 });
 // モデルを作成してエクスポート
 module.exports = mongoose.model("Campground", campgroundSchema);
