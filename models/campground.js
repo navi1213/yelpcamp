@@ -3,7 +3,6 @@ const Review = require("./review");
 const Schema = mongoose.Schema;
 //スキーマを定義
 // https://res.cloudinary.com/dtaye3q8v/image/upload/c_thumb,g_face,h_500,w_500/v1722951130/YelpCamp/iwtciw1iuiqxx46kd5ks.png
-
 const imageSchema = new Schema({
   url: String,
   filename: String,
@@ -39,6 +38,7 @@ const campgroundSchema = new Schema({
     },
   ],
 });
+campgroundSchema.set('toJSON', { virtuals: true});
 campgroundSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     await Review.deleteMany({
@@ -47,6 +47,10 @@ campgroundSchema.post("findOneAndDelete", async function (doc) {
       },
     });
   }
+});
+campgroundSchema.virtual("properties.popupMarkup").get(function () {
+  return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+  <p>${this.description.substring(0,20)}...</p>`;
 });
 // モデルを作成してエクスポート
 module.exports = mongoose.model("Campground", campgroundSchema);
