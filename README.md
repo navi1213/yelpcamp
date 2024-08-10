@@ -49,5 +49,18 @@ localhost:3000に接続する
 macでのインストール  
 [macではこちらを参照してください](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x-tarball/)
 ## トラブルシューティング
--
+
+## DB seeds入れ方
+```
+$ npm run seed:db
+```
+
+## local起動方法
+```
+# seedありで起動
+$ npm run dev:stub
+
+# seedなしで起動
+$ npm run dev:stub
+```
 
