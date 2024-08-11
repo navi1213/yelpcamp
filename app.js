@@ -18,8 +18,10 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require("helmet");
+const MongoStore = require('connect-mongo');
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 mongoose
-  .connect("mongodb://localhost:27017/yelp-camp", {
+  .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -46,9 +48,21 @@ app.use(
     replaceWith: '_',
   }),
 );
+const secret = process.env.SECRET || "mysecret"
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypt:{
+    secret
+  },
+  touchAfter:24*3600
+});
+store.on("error",e=>{
+  console.log("セッションストアエラー",e);
+})
 const sessionConfig = {
+  store,
   name:"hoge",
-  secret: "mysecret",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -56,6 +70,7 @@ const sessionConfig = {
     // secure:true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
+  
 };
 app.use(session(sessionConfig));
 
