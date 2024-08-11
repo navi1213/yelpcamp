@@ -145,7 +145,7 @@ app.use((err, req, res, next) => {
   if (!err.message) err.message = "問題が発生しました";
   res.status(statusCode).render("error", { err });
 });
-
-app.listen("3000", () => {
-  console.log("ポート3000でサーバーを起動しました!");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`ポート${port}でサーバーを起動しました!`);
 });
